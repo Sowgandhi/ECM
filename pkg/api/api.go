@@ -11,13 +11,13 @@ import (
 )
 
 type Event struct {
-	//ID       primitive.ObjectID `json: "id,omitempty" bson:"_id,omitempty"`
-	Title    string  `json: "title" bson:"title,omitempty"`
-	Language string  `json: "language" bson:"language,omitempty"`
-	Genre    string  `json:"genre" bson:"genre,omitempty"`
-	Time     string  `json: "time" bson:"time,omitempty"`
-	Price    string  `json: "price" bson:"price,omitempty"`
-	Artist   *Artist `json:"artist" bson:"artist,omitempty" `
+	ID       primitive.ObjectID `json: "id,omitempty" bson:"_id,omitempty"`
+	Title    string             `json: "title" bson:"title,omitempty"`
+	Language string             `json: "language" bson:"language,omitempty"`
+	Genre    string             `json:"genre" bson:"genre,omitempty"`
+	Time     string             `json: "time" bson:"time,omitempty"`
+	Price    string             `json: "price" bson:"price,omitempty"`
+	Artist   *Artist            `json:"artist" bson:"artist,omitempty" `
 }
 type Artist struct {
 	Name  string `json:"name" bson:"name,omitempty"`
@@ -56,8 +56,8 @@ func CreateEvent(w http.ResponseWriter, r *http.Request) {
 		db.GetError(err, w)
 		return
 	}
-
 	json.NewEncoder(w).Encode(result)
+
 }
 
 //Update
@@ -96,7 +96,6 @@ func UpdateEvent(w http.ResponseWriter, r *http.Request) {
 		db.GetError(err, w)
 		return
 	}
-	//event.ID = id
 	json.NewEncoder(w).Encode(event)
 
 }

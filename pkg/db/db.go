@@ -17,18 +17,18 @@ type Table struct {
 
 var NewCollection Table
 
-func ConnectDB() *mongo.Collection {
+func ConnectDB() (*mongo.Collection, error) {
 	var endpoint string
 	fmt.Println("Enter the Endpoint of the MongoDB Database: ")
 	fmt.Scanf("%s", &endpoint)
 	clientOptions := options.Client().ApplyURI(endpoint)
 	client, err := mongo.Connect(context.TODO(), clientOptions)
-	if err != nil {
+	/*if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println("Connected to MongoDB!")
+	fmt.Println("Connected to MongoDB!")*/
 	NewCollection.Collection = client.Database("go_rest_api").Collection("events")
-	return NewCollection.Collection
+	return NewCollection.Collection, err
 
 }
 

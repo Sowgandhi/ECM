@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 
@@ -11,7 +12,7 @@ import (
 func home(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	switch r.Method {
-	case http.MethodGet:
+	case "GET":
 		w.WriteHeader(http.StatusOK)
 		api.ShowEvent(w, r)
 	case "POST":
@@ -30,8 +31,13 @@ func home(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 
+	var err error
 	http.HandleFunc("/", home)
-	db.NewCollection.Collection = db.ConnectDB()
+	db.NewCollection.Collection, err = db.ConnectDB()
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println("Connected to MongoDB!")
 	log.Fatal(http.ListenAndServe(":8081", nil))
 
 }
